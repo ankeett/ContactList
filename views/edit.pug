@@ -1,0 +1,76 @@
+extends layout.pug 
+
+block content
+    .mt-5
+        div.container-sm
+            div.row.justify-content-center
+                div.col-sm-6
+                    h1.text-center Update Content
+                    .card.bg-light
+                        form.m-5(action='/'+places.id+'/edit', method='post')
+                            h4 Basic Info
+                            .card.mb-3
+                                .card-body
+                                    div.form-group
+                                        label(for="title") Title 
+                                        select#title.form-control.form-select(name='title')
+                                            option(value='Mr.' selected=(places.title === 'Mr.')) Mr.
+                                            option(value='Mrs.' selected=(places.title === 'Mrs.')) Mrs.
+                                            option(value='Ms.' selected=(places.title === 'Ms.')) Ms.
+                                            option(value='Dr.' selected=(places.title === 'Dr.')) Dr.
+
+
+
+                                    div.form-group
+                                        label(for='firstname') First Name:
+                                        input.form-control(type='text', name='firstname', value=places.firstname)
+                                
+
+                                    div.form-group
+                                        label(for='lastname') Last Name:
+                                        input.form-control(type='text', name='lastname', value=places.lastname)
+                                    
+
+                                    div.form-group
+                                        label(for="address") Address 
+                                        input#address.form-control(type='text', name='address', value=places.address)
+
+                                    div.form-group
+                                        label(for='phone') Phone:
+                                        input.form-control(type='text', name='phone', value=places.phone)
+                                    
+
+                                    div.form-group
+                                        label(for='email') Email:
+                                        input.form-control(type='text', name='email', value=places.email)
+                                    
+
+                            
+
+                            h4 Contact Preferences
+                            .card.mb-3
+                                .card-body 
+                                    ui.list-group
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_phone', checked=places.contact_by_phone == 1)
+                                            label(for ='contact_by_phone') Contact by Phone
+                                            br
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_email', checked=places.contact_by_email == 1)
+                                            label(for ='contact_by_email') Contact by Email
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_mail', checked=places.contact_by_mail == 1)
+                                            label(for ='contact_by_mail') Contact by Mail
+                                    
+                        
+                            button.btn.btn-primary.m-2(type='submit') Update
+                            a(href='/') Cancel
+
+
+                            if message 
+                                div.alert.alert-danger.w-25.h-50
+                                    p #{message}
+                        

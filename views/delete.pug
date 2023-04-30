@@ -1,0 +1,17 @@
+extends layout.pug 
+
+block content
+    div.container-sm
+        h1.text-center Delete Contact
+        .card.bg-light.w-50.m-auto
+            .card-body
+                h4 #{places.firstname} #{places.lastname}
+
+                p.text-danger Are you sure you want to delete this contact?
+
+                form(action='/'+places.id+'/delete', method='post')
+                    button.btn.btn-danger.m-2(type='submit') Yes!
+                    a(href='/') Nevermind
+
+                if message
+                    p #{message}   

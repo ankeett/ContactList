@@ -1,0 +1,44 @@
+extends layout.pug
+
+block content
+    .mt-5
+        div.container-sm
+            div.row.justify-content-center
+                div.col-sm-6
+                    h1.text-center Sign up
+                    .card.bg-light
+                        form.m-5(action='/signup', method='post')
+                            div.form-group
+                                label(for='firstname') First Name
+                                input.form-control(type='text', name='firstname')
+                            div.form-group 
+                                label(for='lastname') Last Name
+                                input.form-control(type='text', name='lastname')
+                            
+                            hr
+
+                            div.form-group
+                                label(for='username') Username
+                                input.form-control(type='text', name='username')
+                            
+                            div.form-group
+                                label(for='password') Password
+                                br
+                                input.form-control(type='password', name='password')
+                            div.form-group
+                                label(for='password2') Confirm Password
+                                br
+                                input.form-control(type='password', name='password2')
+                            br
+                            div.d-flex.gap-3
+                                button.btn.btn-primary(type='submit') Sign up
+                                a.mt-2(href='/') Nevermind!
+                            p 
+                            | Already have an account? 
+                            a(href='/login') Sign in here!
+                            
+                            if message 
+                                div.alert.alert-danger.mt-3.mb-0
+                                    p #{message}
+            
+                        

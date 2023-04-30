@@ -1,0 +1,65 @@
+extends layout.pug 
+
+
+block content
+    .mt-5
+        div.container-sm
+            a.btn.btn-primary(href='/') Back to Home
+            div.row.justify-content-center
+                div.col-sm-6
+                    h1.text-center Create Contact
+                    
+                    .card.bg-light 
+                        form.m-5(action='/create', method='post')
+                            h4 Basic Info
+                            .card.mb-3 
+                                .card-body
+                                    div.form-group
+                                        label(for="title") Title 
+                                        select#title.form-control.form-select(type='text', name='title')
+                                            option(value='Mr.') Mr.
+                                            option(value='Mrs.') Mrs.
+                                            option(value='Ms.') Ms.
+                                            option(value='Dr.') Dr.
+
+                                    div.form-group 
+                                        label(for="firstname") First Name 
+                                        input#firstname.form-control(type='text', name='firstname')
+                                    
+                                    div.form-group 
+                                        label(for="lastname") Last Name 
+                                        input#firstname.form-control(type='text', name='lastname')
+
+                                    div.form-group
+                                        label(for="address") Address 
+                                        input#address.form-control(type='text', name='address')
+
+                                    div.form-group
+                                        label(for="phone") Phone 
+                                        input#phone.form-control(type='text', name='phone')
+                                    
+                                    div.form-group
+                                        label(for="email") Email 
+                                        input#email.form-control(type='text', name='email')
+                            
+                            h4 Contact Preferences
+                            .card.mb-3
+                                .card-body
+                                    ui.list-group
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_phone')
+                                            label(for ='contact_by_phone') Contact by Phone
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_email')
+                                            label(for ='contact_by_email') Contact by Email
+                                        li.list-group-item.border-0
+                                            div
+                                            input(type='checkbox', name='contact_by_mail')
+                                            label(for ='contact_by_mail') Contact by Mail
+                            button.btn.btn-primary(type='submit') Add Place
+
+                            if message 
+                                div.alert.alert-danger.mt-3.mb-0
+                                    p #{message}

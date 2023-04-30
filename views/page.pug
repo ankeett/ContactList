@@ -1,0 +1,38 @@
+extends Layout.pug 
+
+block content 
+  .container
+    h1.text-center Contact Info
+    .row
+      .col-6 
+      .col-6.text-end
+        a.btn.btn-primary(href='/') Back to List
+      .col-12.text-left
+        h2 #{places.title} #{places.firstname} #{places.lastname}
+        hr
+        .row
+          .col-lg-6.col-xs-12
+            p
+              b Phone number:
+              span #{places.phone}
+              p
+                i May #{places.contact_by_phone ? "be": "NOT be"}  contacted by phone or text.
+              
+          .col-lg-6.col-xs-12
+            p
+              b Email address:
+              span #{places.email}
+              p
+                i May #{places.contact_by_email ? 'be':'NOT be'} contacted by email.
+          hr
+        p
+          b Address:
+          br
+          span #{places.address} 
+            br
+          p
+            i May #{places.contact_by_mail ?'be':'NOT be'} contacted by mail.
+        hr
+        div.d-flex.justify-content-between
+            a.btn.btn-primary(href='/'+places.id+'/edit') Edit contact
+            a.btn.btn-danger(href='/'+places.id+'/delete').d-inline-block Delete contact

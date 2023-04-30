@@ -1,0 +1,58 @@
+extends layout.pug 
+
+block content
+    .container
+        nav.navbar.navbar-expand-lg
+            .container-fluid
+                h1 Contact List 
+                a.btn.btn-primary(href='/create') Create a new contact
+        
+
+        div.d-flex.flex-column.flex-lg-row.gap-3                  
+                table.table 
+                    thead   
+                        tr
+                            th Suffix 
+                            th Name  
+                            th Address 
+                            th Phone 
+                            th Email
+                            th Contact Preference
+                            th Action
+                    tbody
+            
+        #map-container
+            #map
+                script.
+                    loadMap()
+                        
+            
+
+        
+        script.
+            loadPlaces()
+        
+        if message 
+            div.alert.alert-danger.mt-3.mb-0
+                p #{message}
+        
+        style. 
+            #map-container {
+                position: relative;
+                height: 500px;
+                margin-bottom: 2rem;
+                margin-top: 2rem
+            }
+            #map{
+                height: 100%;
+                position: absolute;
+                top: 0; 
+                bottom: 0; 
+                width: 100%;
+            }
+            tr{
+                cursor:pointer; 
+            }
+            tr:hover{
+                background-color: #C0C0C0
+            }
