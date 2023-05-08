@@ -12,70 +12,96 @@ const loadMap = async () => {
 
 const loadPlaces = async () => {
     const response = await axios.get('/places');
-    const tbody = document.querySelector('tbody');
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-    }
+    const tbody = document.getElementById('list-items');
+    
 
     for (var i = 0; i < markers.length; i++) {
         map.removeLayer(markers[i]);
     }
 
     const places = response.data;
-    console.log(places);
     for (const place of places) {
         let marker = L.marker([place.latitude, place.longitude]).addTo(map)
             .bindPopup(`<b>${place.firstname} ${place.lastname}</b><br/>${place.address}`).openPopup();
         markers.push(marker);
     }
 
-    const on_row_click = (e) => {
-        let row = e.target;
-        if (e.target.tagName.toUpperCase() === 'TD') {
-            row = e.target.parentNode;
-          
-            const lat = row.dataset.lat;
-            const lng = row.dataset.lng;
-            map.flyTo(new L.LatLng(lat, lng));
-
-        }
-      };
-
 
     if (response && response.data) {
         for (const place of response.data) {
-            const tr = document.createElement('tr');
-            tr.dataset.lat = place.latitude;
-            tr.dataset.lng = place.longitude;
-            tr.addEventListener('click', on_row_click);
-            console.log(place)
-            tr.innerHTML = `
-                <td>${place.title}</td>
-                <td>${place.firstname} ${place.lastname}</td>
-                <td>${place.address}</td>
-                <td>${place.phone}</td>
-                <td>${place.email}</td>
-                <td>
-                    <input type='checkbox' ${place.contact_by_email ? 'checked' : ''} disabled>Contact By Email </input>
-                    </br>
-                    <input type='checkbox' ${place.contact_by_phone ? 'checked' : ''} disabled>Contact By Phone </input>
-                    </br>
-                    <input type='checkbox' ${place.contact_by_mail ? 'checked' : ''} disabled>Contact By Mail </input>
-                </td>
-                <td>
-                    <div class='d-flex flex-column gap-3 mt-2'>
-                        <button class='btn btn-primary' onclick='viewPlace(${place.id})'>View</button>
+            const li = document.createElement('li');
+            li.classList.add('list-group-item');
+            li.id = `list-item-${place.id}`;
+            li.dataset.lat = place.latitude;
+            li.dataset.lng = place.longitude;
+            
+            li.addEventListener('click', () => {
+                console.log('here');
+                const lat = li.dataset.lat;
+                const lng = li.dataset.lng;
+                console.log(lat, lng);
+                map.flyTo(new L.LatLng(lat, lng));
+              });
+            li.innerHTML = `
+                <div class="row">
+                    <div class="col-lg-2 col-xs-12">
+                        <a href="/${place.id}">${place.title} ${place.firstname} ${place.lastname}</a>
                     </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        }
+                    <div class="col-lg-4 col-xs-12">
+                        <span>${place.address}</span>
+                    </div>
+                    <div class="col-lg-3 col-xs-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <span>${place.phone}</span>
+                            </div>
+                            <div class="col-12">
+                                <span>${place.email}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-xs-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" disabled ${place.contact_by_phone ? 'checked' : ''}>
+                                    <label class="form-check-label">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" disabled ${place.contact_by_email ? 'checked' : ''}>
+                                    <label class="form-check-label">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" disabled ${place.contact_by_mail ? 'checked' : ''}>
+                                    <label class="form-check-label">Mail</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-xs-12">
+                        <div class="d-flex flex-column gap-3">
+                        <button class="btn btn-primary" onclick="editPlace(${place.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deletePlace(${place.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+        `;
+        tbody.appendChild(li);
 
     }
+}
 }
 const viewPlace = async (id) => {
     window.location.href = `/${id}`;
 }
 
-
-
+const editPlace = async (id) => {
+    window.location.href = `/${id}/edit`;
+}
+const deletePlace = async (id) => {
+    window.location.href = `/${id}/delete`;
+}

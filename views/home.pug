@@ -8,26 +8,15 @@ block content
                 a.btn.btn-primary(href='/create') Create a new contact
         
 
-        div.d-flex.flex-column.flex-lg-row.gap-3                  
-                table.table 
-                    thead   
-                        tr
-                            th Suffix 
-                            th Name  
-                            th Address 
-                            th Phone 
-                            th Email
-                            th Contact Preference
-                            th Action
-                    tbody
+        
+        ul.list-group
+            #list-items
             
         #map-container
             #map
                 script.
                     loadMap()
                         
-            
-
         
         script.
             loadPlaces()
